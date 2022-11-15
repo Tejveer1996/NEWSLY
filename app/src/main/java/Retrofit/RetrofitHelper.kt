@@ -6,7 +6,7 @@ import retrofit2.create
 
 object RetrofitHelper {
 
-    private const val Base_URL = "https://newsapi.org/"
+    const val Base_URL = "https://newsapi.org/"
      val newsInstance : NewsInterface
 
     init {

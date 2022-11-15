@@ -3,20 +3,21 @@ package NewsAdapter
 import ModelClass.Article
 import android.content.Context
 import android.content.Intent
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.SmoothScroller.Action
 import com.bumptech.glide.Glide
+import com.example.newsly.MainActivity
 import com.example.newsly.R
+import com.example.newsly.detail_Activity
 
 
-class NewslyAdapter(private val context: Context, private val articles: List<Article>) :
+class NewslyAdapter( private val context: Context, private val articles: List<Article>) :
     Adapter<NewslyAdapter.ArticleViewHolder>() {
 
 
@@ -41,12 +42,18 @@ class NewslyAdapter(private val context: Context, private val articles: List<Art
 
         holder.shareImage.setOnClickListener {
             val message =
-                "Latest News " + article.title + "\n" + article.description + article.urlToImage
+                "Latest News " + article.title + "\n" + article.description +"\n"+ article.urlToImage+"\n"+article.url
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
             intent.putExtra(Intent.EXTRA_TEXT, message)
             intent.type = "text/plain"
             context.startActivity(Intent.createChooser(intent, "Select the app"))
+        }
+        holder.itemView.setOnClickListener{
+            Toast.makeText(context,article.title,Toast.LENGTH_LONG).show()
+            val intent = Intent(context,detail_Activity::class.java)
+            intent.putExtra("URL",article.url)
+            context.startActivity(intent)
         }
 
     }
